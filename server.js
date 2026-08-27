@@ -1,6 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 const path = require('path');
+const https = require('https');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -8,23 +9,26 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Usa o fetch nativo do Node.js para exibir o IP nos Logs
-fetch('https://api.ipify.org?format=json')
-    .then(res => res.json())
-    .then(data => {
+// Imprime o IP de saída do Render diretamente nos Logs do painel
+https.get('https://api.ipify.org', (res) => {
+    let data = '';
+    res.on('data', (chunk) => data += chunk);
+    res.on('end', () => {
         console.log('--------------------------------------------------');
-        console.log('>>> SEU IP DE SAÍDA NO RENDER É:', data.ip);
+        console.log('>>> SEU IP DE SAIDA NO RENDER E:', data.trim());
         console.log('>>> Cole este IP no painel da Supercell!');
         console.log('--------------------------------------------------');
-    })
-    .catch(err => console.error('Erro ao buscar IP:', err));
+    });
+}).on('error', (err) => {
+    console.log('Erro ao buscar IP:', err.message);
+});
 
 app.get('/api/club/:tag', async (req, res) => {
     const clubTag = req.params.tag;
     const apiKey = process.env.SUPERCELL_API_KEY;
 
     if (!apiKey) {
-        return res.status(500).json({ error: 'Chave de API não configurada.' });
+        return res.status(500).json({ error: 'Chave de API nao configurada.' });
     }
 
     try {
@@ -51,7 +55,7 @@ app.get('/api/player/:tag', async (req, res) => {
     const apiKey = process.env.SUPERCELL_API_KEY;
 
     if (!apiKey) {
-        return res.status(500).json({ error: 'Chave de API não configurada.' });
+        return res.status(500).json({ error: 'Chave de API nao configurada.' });
     }
 
     try {
