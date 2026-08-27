@@ -204,9 +204,15 @@ function renderPlayerDetails(player) {
 
     const avatarImg = document.getElementById('player-avatar');
     if (avatarImg && player.icon && player.icon.id) {
-        avatarImg.src = 'https://cdn.brawlify.com/profile-icons/regular/${player.icon.id}.png';
+        const iconId = player.icon.id;
+        avatarImg.src = `https://cdn.brawlify.com/profile-icons/${iconId}.png`;
+        
+        // Se der erro no primeiro link, tenta a rota alternativa por segurança
         avatarImg.onerror = () => {
-            avatarImg.src = 'https://cdn.brawlify.com/profile-icons/regular/28000000.png';
+            avatarImg.src = `https://cdn.brawlify.com/icons/${iconId}.png`;
+            avatarImg.onerror = () => {
+                avatarImg.src = 'https://cdn.brawlify.com/profile-icons/28000000.png';
+            };
         };
     }
 
