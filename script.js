@@ -86,7 +86,7 @@ async function verMembrosDoClube(tag) {
 async function fetchClubData(tag) {
     try {
         const cleanTag = tag.replace('#', '');
-        const res = await fetch(`/api/club/%23${cleanTag}`);
+        const res = await fetch(`/api/club/${cleanTag}`);
         if (!res.ok) return null;
         return await res.json();
     } catch (err) {
