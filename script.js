@@ -202,6 +202,14 @@ function renderPlayerDetails(player) {
     const detailsContainer = document.getElementById('player-details');
     if (detailsContainer) detailsContainer.classList.remove('hidden');
 
+    const avatarImg = document.getElementById('player-avatar');
+    if (avatarImg && player.icon && player.icon.id) {
+        avatarImg.src = 'https://cdn.brawlify.com/profile-icons/regular/${player.icon.id}.png';
+        avatarImg.onerror = () => {
+            avatarImg.src = 'https://cdn.brawlify.com/profile-icons/regular/28000000.png';
+        };
+    }
+
     document.getElementById('p-name').textContent = player.name;
     document.getElementById('p-tag').textContent = player.tag;
     document.getElementById('p-trophies').textContent = player.trophies?.toLocaleString() || 0;
