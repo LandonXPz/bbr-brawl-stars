@@ -1,3 +1,10 @@
+const ICON_TROPHY = "https://cdn.brawlify.com/icon/trophy.png";
+const ICON_3V3 = "https://cdn.brawlify.com/game-modes/regular/3v3.png";
+const ICON_SOLO = "https://cdn.brawlify.com/game-modes/regular/soloShowdown.png";
+const ICON_DUO = "https://cdn.brawlify.com/game-modes/regular/duoShowdown.png";
+const ICON_EXP = "https://cdn.brawlify.com/icon/exp.png";
+const ICON_CLUB = "https://cdn.brawlify.com/icon/club.png";
+
 const BBR_CLUBS = [
     '#CQYU8RQP',
     '#2Q8LGGUQY',
@@ -246,41 +253,64 @@ function initSearch() {
 }
 
 function renderPlayerDetails(player) {
-    const detailsContainer = document.getElementById('player-details');
-    if (detailsContainer) detailsContainer.classList.remove('hidden');
+    // 1. Preenche as estatísticas básicas (com os novos ícones)
+    const statsContainer = document.getElementById('player-result');
+    if (!statsContainer) return;
 
-    const avatarImg = document.getElementById('player-avatar');
-    if (avatarImg && player.icon && player.icon.id) {
-        avatarImg.onerror = null;
-        avatarImg.src = `https://cdn.brawlify.com/profile-icons/regular/${player.icon.id}.png`;
-        avatarImg.onerror = () => {
-            avatarImg.src = 'https://cdn.brawlify.com/profile-icons/regular/28000000.png';
-        };
-    }
+    statsContainer.innerHTML = `
+        <div class="player-card" style="padding: 16px; background: #1e1e2e; border-radius: 8px; color: white; margin-bottom: 20px;">
+            <h3 style="margin-top: 0; color: #55ff55;">${player.name} <span style="font-size: 14px; color: #aaa;">(${player.tag})</span></h3>
+            
+            <p>
+                <img src="${ICON_CLUB}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;" alt="Clube">
+                <strong>Clube:</strong> ${player.club?.name || 'Sem clube'}
+            </p>
+            <p>
+                <img src="${ICON_TROPHY}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;" alt="Troféus">
+                <strong>Troféus:</strong> ${player.trophies?.toLocaleString() || 0}
+            </p>
+            <p>
+                <img src="${ICON_3V3}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;" alt="Vitórias 3v3">
+                <strong>Vitórias 3v3:</strong> ${player['3vs3Victories']?.toLocaleString() || 0}
+            </p>
+            <p>
+                <img src="${ICON_SOLO}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;" alt="Vitórias Solo">
+                <strong>Vitórias Solo:</strong> ${player.soloVictories?.toLocaleString() || 0}
+            </p>
+            <p>
+                <img src="${ICON_DUO}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;" alt="Vitórias Dupla">
+                <strong>Vitórias Dupla:</strong> ${player.duoVictories?.toLocaleString() || 0}
+            </p>
+            <p>
+                <img src="${ICON_EXP}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;" alt="Nível de EXP">
+                <strong>Nível de EXP:</strong> ${player.expLevel || 0}
+            </p>
+            <p>
+                <strong>Brawlers:</strong> ${player.brawlers ? `${player.brawlers.length} / 80+` : 0}
+            </p>
+            <p>
+                <strong>Qualificado p/ Campeonato:</strong> ${player.isQualifiedFromChampionshipChallenge ? 'Sim' : 'Não'}
+            </p>
+        </div>
+    `;
 
-    document.getElementById('p-name').textContent = player.name;
-    document.getElementById('p-tag').textContent = player.tag;
-    document.getElementById('p-trophies').textContent = player.trophies?.toLocaleString() || 0;
-    document.getElementById('p-highest').textContent = player.highestTrophies?.toLocaleString() || 0;
-    document.getElementById('p-3v3').textContent = player['3vs3Victories']?.toLocaleString() || 0;
-    document.getElementById('p-solo').textContent = player.soloVictories?.toLocaleString() || 0;
-    document.getElementById('p-duo').textContent = player.duoVictories?.toLocaleString() || 0;
-    document.getElementById('p-exp').textContent = player.expLevel || 0;
-    document.getElementById('p-club').textContent = player.club?.name || 'Sem Clube';
-    document.getElementById('p-brawlers-count').textContent = player.brawlers ? `${player.brawlers.length} / 80+` : 0;
-    document.getElementById('p-champ').textContent = player.isQualifiedFromChampionshipChallenge ? 'Sim' : 'Não';
-
-
+    // 2. Preenche os Melhores/Piores Brawlers (mantendo sua lógica original)
     if (player.brawlers && player.brawlers.length > 0) {
         const sortedBrawlers = [...player.brawlers].sort((a, b) => b.trophies - a.trophies);
         
         const best = sortedBrawlers[0];
         const worst = sortedBrawlers[sortedBrawlers.length - 1];
 
-        document.getElementById('best-brawler-name').textContent = best.name;
-        document.getElementById('best-brawler-trophies').textContent = `${best.trophies} 🏆`;
+        // Certifique-se que esses IDs existem no seu HTML
+        const bestNameEl = document.getElementById('best-brawler-name');
+        const bestTrophiesEl = document.getElementById('best-brawler-trophies');
+        const worstNameEl = document.getElementById('worst-brawler-name');
+        const worstTrophiesEl = document.getElementById('worst-brawler-trophies');
 
-        document.getElementById('worst-brawler-name').textContent = worst.name;
-        document.getElementById('worst-brawler-trophies').textContent = `${worst.trophies} 🏆`;
+        if (bestNameEl) bestNameEl.textContent = best.name;
+        if (bestTrophiesEl) bestTrophiesEl.innerHTML = `<img src="${ICON_TROPHY}" width="16" height="16" style="vertical-align: middle;"> ${best.trophies}`;
+        
+        if (worstNameEl) worstNameEl.textContent = worst.name;
+        if (worstTrophiesEl) worstTrophiesEl.innerHTML = `<img src="${ICON_TROPHY}" width="16" height="16" style="vertical-align: middle;"> ${worst.trophies}`;
     }
 }
