@@ -233,15 +233,15 @@ function initSearch() {
         const tag = input.value.trim().replace('#', '');
         if (!tag) return alert('Por favor, digite uma Tag válida.');
 
-        try {
+       try {
             const res = await fetch(`/api/players/${tag}`);
+            const data = await res.json();
+
             if (!res.ok) {
-    const errData = await res.json().catch(() => ({}));
-    throw new Error(errData.error || 'Erro ao buscar jogador');
-}
-            
-            const player = await res.json();
-            renderPlayerDetails(player);
+                throw new Error(data.error || 'Erro ao buscar jogador');
+            }
+
+            renderPlayerDetails(data);
         } catch (err) {
             alert(err.message);
         }
