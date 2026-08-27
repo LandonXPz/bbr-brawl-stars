@@ -7,29 +7,34 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(cors());
+
+// Serve arquivos estáticos da pasta atual ou da pasta public
+app.use(express.static(__dirname));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Imprime o IP de saída do Render diretamente nos Logs do painel
+// Rota principal (Garante o envio do index.html)
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'), (err) => {
+        if (err) {
+            res.sendFile(path.join(__dirname, 'public', 'index.html'));
+        }
+    });
+});
+
+// Imprime o IP nos logs
 https.get('https://api.ipify.org', (res) => {
     let data = '';
     res.on('data', (chunk) => data += chunk);
     res.on('end', () => {
-        console.log('--------------------------------------------------');
-        console.log('>>> SEU IP DE SAIDA NO RENDER E:', data.trim());
-        console.log('>>> Cole este IP no painel da Supercell!');
-        console.log('--------------------------------------------------');
+        console.log('>>> IP DE SAIDA NO RENDER:', data.trim());
     });
-}).on('error', (err) => {
-    console.log('Erro ao buscar IP:', err.message);
-});
+}).on('error', () => {});
 
 app.get('/api/club/:tag', async (req, res) => {
     const clubTag = req.params.tag;
     const apiKey = process.env.SUPERCELL_API_KEY;
 
-    if (!apiKey) {
-        return res.status(500).json({ error: 'Chave de API nao configurada.' });
-    }
+    if (!apiKey) return res.status(500).json({ error: 'Chave de API não configurada.' });
 
     try {
         const response = await fetch(`https://api.brawlstars.com/v1/clubs/%23${clubTag}`, {
@@ -39,9 +44,7 @@ app.get('/api/club/:tag', async (req, res) => {
             }
         });
 
-        if (!response.ok) {
-            return res.status(response.status).json({ error: 'Erro ao buscar clube' });
-        }
+        if (!response.ok) return res.status(response.status).json({ error: 'Erro ao buscar clube' });
 
         const data = await response.json();
         res.json(data);
@@ -54,9 +57,7 @@ app.get('/api/player/:tag', async (req, res) => {
     const playerTag = req.params.tag;
     const apiKey = process.env.SUPERCELL_API_KEY;
 
-    if (!apiKey) {
-        return res.status(500).json({ error: 'Chave de API nao configurada.' });
-    }
+    if (!apiKey) return res.status(500).json({ error: 'Chave de API não configurada.' });
 
     try {
         const response = await fetch(`https://api.brawlstars.com/v1/players/%23${playerTag}`, {
@@ -66,9 +67,7 @@ app.get('/api/player/:tag', async (req, res) => {
             }
         });
 
-        if (!response.ok) {
-            return res.status(response.status).json({ error: 'Erro ao buscar jogador' });
-        }
+        if (!response.ok) return res.status(response.status).json({ error: 'Erro ao buscar jogador' });
 
         const data = await response.json();
         res.json(data);
