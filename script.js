@@ -37,6 +37,51 @@ function initTabs() {
         });
     });
 }
+async function verMembrosDoClube(tag) {
+    const cleanTag = tag.replace('#', '');
+    const modal = document.getElementById('club-modal');
+    const nameEl = document.getElementById('modal-club-name');
+    const tagEl = document.getElementById('modal-club-tag');
+    const listEl = document.getElementById('modal-members-list');
+
+    try {
+        listEl.innerHTML = '<p>Carregando membros...</p>';
+        modal.style.display = 'flex';
+
+        const response = await fetch(`/api/club/${cleanTag}`);
+        if (!response.ok) throw new Error('Clube não encontrado');
+        
+        const clubData = await response.json();
+        nameEl.innerText = clubData.name;
+        tagEl.innerText = clubData.tag;
+        listEl.innerHTML = '';
+
+        if (clubData.members && clubData.members.length > 0) {
+            clubData.members.forEach(member => {
+                const memberCard = document.createElement('div');
+                memberCard.style.cssText = 'display: flex; align-items: center; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #333;';
+                
+                memberCard.innerHTML = `
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <img src="https://cdn.brawlify.com/profile-icons/regular/${member.icon?.id || 28000000}.png" width="32" height="32" style="border-radius: 50%;">
+                        <div>
+                            <strong>${member.name}</strong>
+                            <div style="font-size: 12px; color: #aaa;">${member.role}</div>
+                        </div>
+                    </div>
+                    <span>🏆 ${member.trophies.toLocaleString()}</span>
+                `;
+                listEl.appendChild(memberCard);
+            });
+        } else {
+            listEl.innerHTML = '<p>Nenhum membro encontrado.</p>';
+        }
+
+    } catch (error) {
+        console.error('Erro ao buscar membros:', error);
+        listEl.innerHTML = '<p style="color: #ff5555;">Erro ao carregar membros do clube.</p>';
+    }
+}
 
 async function fetchClubData(tag) {
     try {
@@ -77,12 +122,14 @@ async function loadDashboardData() {
         if (clubGrid) {
             const card = document.createElement('div');
             card.className = 'club-card';
+            card.style.cursor = 'pointer';
+            card.onclick = () => verMembrosDoClube(club.tag);
             card.innerHTML = `
                 <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
-                    <img src="https://cdn.brawlify.com/club-badges/regular/${club.badgeId}.png" 
-                         alt="Badge ${club.name}" 
+                    <img src="https://cdn.brawlify.com/club-badges/regular/${club.badgeId || 16000000}.png"
+                         alt="Badge ${club.name}"
                          style="width: 48px; height: 48px; object-fit: contain;"
-                         onerror="this.src='https://cdn.brawlify.com/club-badges/regular/0.png'">
+                         onerror="this.src='https://cdn.brawlify.com/club-badges/regular/16000000.png'">
                     <div>
                         <h3 style="margin: 0;">${club.name}</h3>
                         <p class="subtext" style="margin: 0;">${club.tag}</p>
