@@ -53,7 +53,7 @@ app.get('/api/club/:tag', async (req, res) => {
     }
 });
 
-app.get('/api/player/:tag', async (req, res) => {
+app.get('/api/players/:tag', async (req, res) => {
     const playerTag = req.params.tag;
     const apiKey = process.env.SUPERCELL_API_KEY;
 
