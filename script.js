@@ -203,21 +203,26 @@ function renderPlayerDetails(player) {
     if (detailsContainer) detailsContainer.classList.remove('hidden');
 
     const avatarImg = document.getElementById('player-avatar');
-if (avatarImg && player.icon && player.icon.id) {
-    avatarImg.onerror = null; 
-    
-    avatarImg.src = `https://cdn.brawlify.com/profile-icons/regular/${player.icon.id}.png`;
-    
-    avatarImg.onerror = () => {
-        avatarImg.src = 'https://cdn.brawlify.com/profile-icons/regular/28000000.png';
-    };
-}
+    if (avatarImg && player.icon && player.icon.id) {
+        avatarImg.onerror = null;
+        avatarImg.src = `https://cdn.brawlify.com/profile-icons/regular/${player.icon.id}.png`;
+        avatarImg.onerror = () => {
+            avatarImg.src = 'https://cdn.brawlify.com/profile-icons/regular/28000000.png';
+        };
+    }
 
     document.getElementById('p-name').textContent = player.name;
     document.getElementById('p-tag').textContent = player.tag;
     document.getElementById('p-trophies').textContent = player.trophies?.toLocaleString() || 0;
     document.getElementById('p-highest').textContent = player.highestTrophies?.toLocaleString() || 0;
     document.getElementById('p-3v3').textContent = player['3vs3Victories']?.toLocaleString() || 0;
+    document.getElementById('p-solo').textContent = player.soloVictories?.toLocaleString() || 0;
+    document.getElementById('p-duo').textContent = player.duoVictories?.toLocaleString() || 0;
+    document.getElementById('p-exp').textContent = player.expLevel || 0;
+    document.getElementById('p-club').textContent = player.club?.name || 'Sem Clube';
+    document.getElementById('p-brawlers-count').textContent = player.brawlers ? `${player.brawlers.length} / 80+` : 0;
+    document.getElementById('p-champ').textContent = player.isQualifiedFromChampionshipChallenge ? 'Sim' : 'Não';
+
 
     if (player.brawlers && player.brawlers.length > 0) {
         const sortedBrawlers = [...player.brawlers].sort((a, b) => b.trophies - a.trophies);
