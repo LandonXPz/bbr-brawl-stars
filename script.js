@@ -1,10 +1,3 @@
-const ICON_TROPHY = "https://cdn.brawlify.com/icon/trophy.png";
-const ICON_3V3 = "https://cdn.brawlify.com/game-modes/regular/3v3.png";
-const ICON_SOLO = "https://cdn.brawlify.com/game-modes/regular/soloShowdown.png";
-const ICON_DUO = "https://cdn.brawlify.com/game-modes/regular/duoShowdown.png";
-const ICON_EXP = "https://cdn.brawlify.com/icon/exp.png";
-const ICON_CLUB = "https://cdn.brawlify.com/icon/club.png";
-
 const BBR_CLUBS = [
     '#CQYU8RQP',
     '#2Q8LGGUQY',
@@ -259,23 +252,17 @@ function renderPlayerDetails(player) {
         if (el) el.innerHTML = htmlContent;
     };
 
-    const setContent = (id, textContent) => {
-        const el = document.getElementById(id);
-        if (el) el.textContent = textContent;
-    };
-
-    setInner('p-club', `<img src="${ICON_CLUB}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;"> ${player.club?.name || 'Sem Clube'}`);
-    setInner('p-trophies', `<img src="${ICON_TROPHY}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;"> ${player.trophies?.toLocaleString() || 0}`);
-    setInner('p-highest', `<img src="${ICON_TROPHY}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;"> ${player.highestTrophies?.toLocaleString() || 0}`);
-    setInner('p-3v3', `<img src="${ICON_3V3}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;"> ${player['3vs3Victories']?.toLocaleString() || 0}`);
-    setInner('p-solo', `<img src="${ICON_SOLO}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;"> ${player.soloVictories?.toLocaleString() || 0}`);
-    setInner('p-duo', `<img src="${ICON_DUO}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;"> ${player.duoVictories?.toLocaleString() || 0}`);
-    setInner('p-exp', `<img src="${ICON_EXP}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;"> ${player.expLevel || 0}`);
+    setInner('p-club', player.club?.name || 'Sem Clube');
+    setInner('p-trophies', player.trophies?.toLocaleString() || 0);
+    setInner('p-highest', player.highestTrophies?.toLocaleString() || 0);
+    setInner('p-3v3', player['3vs3Victories']?.toLocaleString() || 0);
+    setContent('p-solo', player.soloVictories?.toLocaleString() || 0);
+    setContent('p-duo', player.duoVictories?.toLocaleString() || 0);
+    setContent('p-exp', player.expLevel || 0);
 
     setContent('p-brawlers-count', player.brawlers ? `${player.brawlers.length} / 80+` : '0');
     setContent('p-champ', player.isQualifiedFromChampionshipChallenge ? 'Sim' : 'Não');
 
-    // 2. Brawlers Mais e Menos Troféus
     if (player.brawlers && player.brawlers.length > 0) {
         const sortedBrawlers = [...player.brawlers].sort((a, b) => b.trophies - a.trophies);
         
@@ -283,9 +270,9 @@ function renderPlayerDetails(player) {
         const worst = sortedBrawlers[sortedBrawlers.length - 1];
 
         setContent('best-brawler-name', best.name);
-        setInner('best-brawler-trophies', `${best.trophies} 🏆`);
+        setContent('best-brawler-trophies', `${best.trophies} 🏆`);
 
         setContent('worst-brawler-name', worst.name);
-        setInner('worst-brawler-trophies', `${worst.trophies} 🏆`);
+        setContent('worst-brawler-trophies', `${worst.trophies} 🏆`);
     }
 }
