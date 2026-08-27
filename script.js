@@ -234,7 +234,7 @@ function initSearch() {
         if (!tag) return alert('Por favor, digite uma Tag válida.');
 
         try {
-            const res = await fetch(`/api/player/${tag}`);
+            const res = await fetch(`/api/player/%23${tag}`);
             if (!res.ok) {
     const errData = await res.json().catch(() => ({}));
     throw new Error(errData.error || 'Erro ao buscar jogador');
