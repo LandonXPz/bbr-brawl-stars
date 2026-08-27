@@ -246,22 +246,21 @@ function initSearch() {
 }
 
 function renderPlayerDetails(player) {
-    // 1. Estatísticas Básicas (MANTÉM OS IDs ORIGINAIS DO SEU HTML)
-    const setInner = (id, htmlContent) => {
+    const updateText = (id, text) => {
         const el = document.getElementById(id);
-        if (el) el.innerHTML = htmlContent;
+        if (el) el.textContent = text;
     };
 
-    setInner('p-club', player.club?.name || 'Sem Clube');
-    setInner('p-trophies', player.trophies?.toLocaleString() || 0);
-    setInner('p-highest', player.highestTrophies?.toLocaleString() || 0);
-    setInner('p-3v3', player['3vs3Victories']?.toLocaleString() || 0);
-    setContent('p-solo', player.soloVictories?.toLocaleString() || 0);
-    setContent('p-duo', player.duoVictories?.toLocaleString() || 0);
-    setContent('p-exp', player.expLevel || 0);
+    updateText('p-club', player.club?.name || 'Sem Clube');
+    updateText('p-trophies', player.trophies?.toLocaleString() || 0);
+    updateText('p-highest', player.highestTrophies?.toLocaleString() || 0);
+    updateText('p-3v3', player['3vs3Victories']?.toLocaleString() || 0);
+    updateText('p-solo', player.soloVictories?.toLocaleString() || 0);
+    updateText('p-duo', player.duoVictories?.toLocaleString() || 0);
+    updateText('p-exp', player.expLevel || 0);
 
-    setContent('p-brawlers-count', player.brawlers ? `${player.brawlers.length} / 80+` : '0');
-    setContent('p-champ', player.isQualifiedFromChampionshipChallenge ? 'Sim' : 'Não');
+    updateText('p-brawlers-count', player.brawlers ? `${player.brawlers.length} / 80+` : '0');
+    updateText('p-champ', player.isQualifiedFromChampionshipChallenge ? 'Sim' : 'Não');
 
     if (player.brawlers && player.brawlers.length > 0) {
         const sortedBrawlers = [...player.brawlers].sort((a, b) => b.trophies - a.trophies);
@@ -269,10 +268,10 @@ function renderPlayerDetails(player) {
         const best = sortedBrawlers[0];
         const worst = sortedBrawlers[sortedBrawlers.length - 1];
 
-        setContent('best-brawler-name', best.name);
-        setContent('best-brawler-trophies', `${best.trophies} 🏆`);
+        updateText('best-brawler-name', best.name);
+        updateText('best-brawler-trophies', `${best.trophies} 🏆`);
 
-        setContent('worst-brawler-name', worst.name);
-        setContent('worst-brawler-trophies', `${worst.trophies} 🏆`);
+        updateText('worst-brawler-name', worst.name);
+        updateText('worst-brawler-trophies', `${worst.trophies} 🏆`);
     }
 }
