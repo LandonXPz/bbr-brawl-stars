@@ -250,6 +250,13 @@ function initSearch() {
 
 function renderPlayerDetails(player) {
     document.getElementById('player-details').classList.remove('hidden');
+    updateText('p-name', player.name);
+updateText('p-tag', player.tag);
+
+const avatarImg = document.getElementById('player-avatar');
+if (avatarImg && player.icon) {
+    avatarImg.src = `https://cdn.brawlify.com/profile-icons/regular/${player.icon.id}.png`;
+}
     const updateText = (id, text) => {
         const el = document.getElementById(id);
         if (el) el.textContent = text;
