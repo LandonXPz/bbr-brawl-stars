@@ -253,64 +253,39 @@ function initSearch() {
 }
 
 function renderPlayerDetails(player) {
-    // 1. Preenche as estatísticas básicas (com os novos ícones)
-    const statsContainer = document.getElementById('player-result');
-    if (!statsContainer) return;
+    // 1. Estatísticas Básicas (MANTÉM OS IDs ORIGINAIS DO SEU HTML)
+    const setInner = (id, htmlContent) => {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = htmlContent;
+    };
 
-    statsContainer.innerHTML = `
-        <div class="player-card" style="padding: 16px; background: #1e1e2e; border-radius: 8px; color: white; margin-bottom: 20px;">
-            <h3 style="margin-top: 0; color: #55ff55;">${player.name} <span style="font-size: 14px; color: #aaa;">(${player.tag})</span></h3>
-            
-            <p>
-                <img src="${ICON_CLUB}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;" alt="Clube">
-                <strong>Clube:</strong> ${player.club?.name || 'Sem clube'}
-            </p>
-            <p>
-                <img src="${ICON_TROPHY}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;" alt="Troféus">
-                <strong>Troféus:</strong> ${player.trophies?.toLocaleString() || 0}
-            </p>
-            <p>
-                <img src="${ICON_3V3}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;" alt="Vitórias 3v3">
-                <strong>Vitórias 3v3:</strong> ${player['3vs3Victories']?.toLocaleString() || 0}
-            </p>
-            <p>
-                <img src="${ICON_SOLO}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;" alt="Vitórias Solo">
-                <strong>Vitórias Solo:</strong> ${player.soloVictories?.toLocaleString() || 0}
-            </p>
-            <p>
-                <img src="${ICON_DUO}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;" alt="Vitórias Dupla">
-                <strong>Vitórias Dupla:</strong> ${player.duoVictories?.toLocaleString() || 0}
-            </p>
-            <p>
-                <img src="${ICON_EXP}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;" alt="Nível de EXP">
-                <strong>Nível de EXP:</strong> ${player.expLevel || 0}
-            </p>
-            <p>
-                <strong>Brawlers:</strong> ${player.brawlers ? `${player.brawlers.length} / 80+` : 0}
-            </p>
-            <p>
-                <strong>Qualificado p/ Campeonato:</strong> ${player.isQualifiedFromChampionshipChallenge ? 'Sim' : 'Não'}
-            </p>
-        </div>
-    `;
+    const setContent = (id, textContent) => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = textContent;
+    };
 
-    // 2. Preenche os Melhores/Piores Brawlers (mantendo sua lógica original)
+    setInner('p-club', `<img src="${ICON_CLUB}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;"> ${player.club?.name || 'Sem Clube'}`);
+    setInner('p-trophies', `<img src="${ICON_TROPHY}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;"> ${player.trophies?.toLocaleString() || 0}`);
+    setInner('p-highest', `<img src="${ICON_TROPHY}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;"> ${player.highestTrophies?.toLocaleString() || 0}`);
+    setInner('p-3v3', `<img src="${ICON_3V3}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;"> ${player['3vs3Victories']?.toLocaleString() || 0}`);
+    setInner('p-solo', `<img src="${ICON_SOLO}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;"> ${player.soloVictories?.toLocaleString() || 0}`);
+    setInner('p-duo', `<img src="${ICON_DUO}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;"> ${player.duoVictories?.toLocaleString() || 0}`);
+    setInner('p-exp', `<img src="${ICON_EXP}" width="20" height="20" style="vertical-align: middle; margin-right: 6px;"> ${player.expLevel || 0}`);
+
+    setContent('p-brawlers-count', player.brawlers ? `${player.brawlers.length} / 80+` : '0');
+    setContent('p-champ', player.isQualifiedFromChampionshipChallenge ? 'Sim' : 'Não');
+
+    // 2. Brawlers Mais e Menos Troféus
     if (player.brawlers && player.brawlers.length > 0) {
         const sortedBrawlers = [...player.brawlers].sort((a, b) => b.trophies - a.trophies);
         
         const best = sortedBrawlers[0];
         const worst = sortedBrawlers[sortedBrawlers.length - 1];
 
-        // Certifique-se que esses IDs existem no seu HTML
-        const bestNameEl = document.getElementById('best-brawler-name');
-        const bestTrophiesEl = document.getElementById('best-brawler-trophies');
-        const worstNameEl = document.getElementById('worst-brawler-name');
-        const worstTrophiesEl = document.getElementById('worst-brawler-trophies');
+        setContent('best-brawler-name', best.name);
+        setInner('best-brawler-trophies', `${best.trophies} 🏆`);
 
-        if (bestNameEl) bestNameEl.textContent = best.name;
-        if (bestTrophiesEl) bestTrophiesEl.innerHTML = `<img src="${ICON_TROPHY}" width="16" height="16" style="vertical-align: middle;"> ${best.trophies}`;
-        
-        if (worstNameEl) worstNameEl.textContent = worst.name;
-        if (worstTrophiesEl) worstTrophiesEl.innerHTML = `<img src="${ICON_TROPHY}" width="16" height="16" style="vertical-align: middle;"> ${worst.trophies}`;
+        setContent('worst-brawler-name', worst.name);
+        setInner('worst-brawler-trophies', `${worst.trophies} 🏆`);
     }
 }
