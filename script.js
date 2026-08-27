@@ -249,6 +249,7 @@ function initSearch() {
 }
 
 function renderPlayerDetails(player) {
+    document.getElementById('player-details').classList.remove('hidden');
     const updateText = (id, text) => {
         const el = document.getElementById(id);
         if (el) el.textContent = text;
