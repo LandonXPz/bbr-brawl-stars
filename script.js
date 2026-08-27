@@ -275,3 +275,5 @@ function renderPlayerDetails(player) {
         updateText('worst-brawler-trophies', `${worst.trophies} 🏆`);
     }
 }
+
+initSearch();
