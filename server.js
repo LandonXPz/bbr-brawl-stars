@@ -1,6 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
 const path = require('path');
 
 const app = express();
@@ -9,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Descobre e exibe o IP público do Render nos Logs
+// Usa o fetch nativo do Node.js para exibir o IP nos Logs
 fetch('https://api.ipify.org?format=json')
     .then(res => res.json())
     .then(data => {
