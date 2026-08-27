@@ -60,7 +60,7 @@ app.get('/api/players/:tag', async (req, res) => {
     if (!apiKey) return res.status(500).json({ error: 'Chave de API não configurada.' });
 
     try {
-        const response = await fetch(`https://api.brawlstars.com/v1/players/%23${playerTag}`, {
+       const response = await fetch(`https://api.brawlstars.com/v1/players/%23${playerTag}`, {
             headers: {
                 'Authorization': `Bearer ${apiKey}`,
                 'Accept': 'application/json'
