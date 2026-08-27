@@ -45,14 +45,12 @@ async function fetchClubData(tag) {
         if (!res.ok) return null;
         return await res.json();
     } catch (err) {
-        console.error(`Erro ao buscar clube ${tag}:`, err);
         return null;
     }
 }
 
 async function loadDashboardData() {
     const clubGrid = document.getElementById('club-grid');
-    const rankingTbody = document.getElementById('ranking-tbody');
     
     if (clubGrid) clubGrid.innerHTML = '<p class="subtext">Carregando clubes...</p>';
 
@@ -80,9 +78,17 @@ async function loadDashboardData() {
             const card = document.createElement('div');
             card.className = 'club-card';
             card.innerHTML = `
-                <h3>${club.name}</h3>
-                <p class="subtext">${club.tag}</p>
-                <p style="margin-top: 10px;"><strong>Troféus:</strong> 🏆 ${club.trophies?.toLocaleString() || 0}</p>
+                <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+                    <img src="https://cdn.brawlify.com/club-badges/regular/${club.badgeId}.png" 
+                         alt="Badge ${club.name}" 
+                         style="width: 48px; height: 48px; object-fit: contain;"
+                         onerror="this.src='https://cdn.brawlify.com/club-badges/regular/0.png'">
+                    <div>
+                        <h3 style="margin: 0;">${club.name}</h3>
+                        <p class="subtext" style="margin: 0;">${club.tag}</p>
+                    </div>
+                </div>
+                <p><strong>Troféus:</strong> 🏆 ${club.trophies?.toLocaleString() || 0}</p>
                 <p><strong>Membros:</strong> 👥 ${club.members?.length || 0}/30</p>
             `;
             clubGrid.appendChild(card);
