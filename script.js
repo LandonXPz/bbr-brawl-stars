@@ -235,7 +235,10 @@ function initSearch() {
 
         try {
             const res = await fetch(`/api/player/${tag}`);
-            if (!res.ok) throw new Error('Jogador não encontrado ou erro na API');
+            if (!res.ok) {
+    const errData = await res.json().catch(() => ({}));
+    throw new Error(errData.error || 'Erro ao buscar jogador');
+}
             
             const player = await res.json();
             renderPlayerDetails(player);

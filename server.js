@@ -37,7 +37,7 @@ app.get('/api/club/:tag', async (req, res) => {
     if (!apiKey) return res.status(500).json({ error: 'Chave de API não configurada.' });
 
     try {
-        const response = await fetch(`https://api.brawlstars.com/v1/clubs/%23${clubTag}`, {
+        const response = await fetch(`https://api.brawlstars.com/v1/clubs/#${clubTag}`, {
             headers: {
                 'Authorization': `Bearer ${apiKey}`,
                 'Accept': 'application/json'
@@ -60,7 +60,7 @@ app.get('/api/player/:tag', async (req, res) => {
     if (!apiKey) return res.status(500).json({ error: 'Chave de API não configurada.' });
 
     try {
-        const response = await fetch(`https://api.brawlstars.com/v1/players/%23${playerTag}`, {
+        const response = await fetch(`https://api.brawlstars.com/v1/players/#${playerTag}`, {
             headers: {
                 'Authorization': `Bearer ${apiKey}`,
                 'Accept': 'application/json'
