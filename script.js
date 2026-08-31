@@ -65,8 +65,8 @@ async function verMembrosDoClube(tag) {
                     <div style="display: flex; align-items: center; gap: 8px;">
                         <img src="https://cdn.brawlify.com/profile-icons/regular/${member.icon?.id || 28000000}.png" width="32" height="32" style="border-radius: 50%;">
                         <div>
-                           <a href="index.html?tag=${member.tag.replace('#', '')}" style="color: inherit; text-decoration: none;"><strong>${member.name}</strong></a>
-                            <div style="font-size: 12px; color: #aaa;">${member.tag}</div>
+                         <strong>${member.name}</strong>
+                        <div style="font-size: 12px; color: #aaa;">${member.tag}</div>
                         </div>
                     </div>
                     <span>🏆 ${member.trophies.toLocaleString()}</span>
@@ -176,7 +176,7 @@ function renderRanking(members) {
         tr.innerHTML = `
             <td>#${index + 1}</td>
             <td><strong>${player.name}</strong></td>
-            <td>${player.clubName}</td>
+            <td><img src="imagens/club.png" alt="Clube" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 6px;">${player.clubName}</td>
             <td><img src="imagens/icon_trophy.png" alt="Troféu" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"> ${player.trophies.toLocaleString()}</td>
         `;
         rankingTbody.appendChild(tr);
