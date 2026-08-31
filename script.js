@@ -177,7 +177,7 @@ function renderRanking(members) {
             <td>#${index + 1}</td>
             <td><strong>${player.name}</strong></td>
             <td>${player.clubName}</td>
-            <td>🏆 ${player.trophies.toLocaleString()}</td>
+            <td><img src="imagens/icon_trophy.png" alt="Troféu" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"> ${player.trophies.toLocaleString()}</td>
         `;
         rankingTbody.appendChild(tr);
     });
