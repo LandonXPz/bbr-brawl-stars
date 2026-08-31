@@ -306,3 +306,13 @@ body {
   object-fit: contain;
   margin-right: 4px;
 }
+.stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.stat-box {
+  flex: 1 1 200px;
+  min-width: 180px;
+}
