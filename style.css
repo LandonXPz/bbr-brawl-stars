@@ -316,3 +316,11 @@ body {
   flex: 1 1 200px;
   min-width: 180px;
 }
+.logo-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-link:hover {
+  opacity: 0.8;
+}
