@@ -66,7 +66,7 @@ async function verMembrosDoClube(tag) {
                         <img src="https://cdn.brawlify.com/profile-icons/regular/${member.icon?.id || 28000000}.png" width="32" height="32" style="border-radius: 50%;">
                         <div>
                             <strong>${member.name}</strong>
-                            <div style="font-size: 12px; color: #aaa;">${member.role}</div>
+                            <div style="font-size: 12px; color: #aaa;">${member.tag}</div>
                         </div>
                     </div>
                     <span>🏆 ${member.trophies.toLocaleString()}</span>
