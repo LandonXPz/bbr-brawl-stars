@@ -293,3 +293,14 @@ body {
     transform: translateY(-3px);
     box-shadow: 0 5px 15px rgba(123, 44, 191, 0.4);
 }
+.stat-box img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+  margin-right: 8px;
+}
+
+.stat-box {
+  display: flex;
+  align-items: center;
+}
