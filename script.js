@@ -65,7 +65,7 @@ async function verMembrosDoClube(tag) {
                     <div style="display: flex; align-items: center; gap: 8px;">
                         <img src="https://cdn.brawlify.com/profile-icons/regular/${member.icon?.id || 28000000}.png" width="32" height="32" style="border-radius: 50%;">
                         <div>
-                            <strong>${member.name}</strong>
+                           <a href="index.html?tag=${member.tag.replace('#', '')}" style="color: inherit; text-decoration: none;"><strong>${member.name}</strong></a>
                             <div style="font-size: 12px; color: #aaa;">${member.tag}</div>
                         </div>
                     </div>
