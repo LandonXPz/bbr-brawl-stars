@@ -1,11 +1,11 @@
 const BBR_CLUBS = [
+    '#882UJP9GR',
     '#CQYU8RQP',
-    '#2Q8LGGUQY',
-    '#820QG8Q2V',
-    '#2LVV8J8C8',
-    '#80GYP9LCG',
-    '#80LJYQ982',
-    '#80VCJU8LV',
+    '#882GLYJ8C',
+    '#2GLJJJQU9',
+    '#2GP2RLLVL',
+    '#2UCVYQGGP',
+    '#2GLJJVJ9V',
     '#2CRUQ29LL'
 ];
 
