@@ -14,5 +14,13 @@
         "semana2": 50,
         "semana3": 50,
         "semana4": 50
-    }
+    },
+    {
+            "posicao": 3,
+            "nick": "Landuin",
+            "semana1": 250,
+            "semana2": 50,
+            "semana3": 90,
+            "semana4": 50
+        }
 ]
