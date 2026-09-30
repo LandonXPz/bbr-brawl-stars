@@ -6,5 +6,13 @@
     "semana2": 67,
     "semana3": 67,
     "semana4": 76
-  }
+  },
+  {
+        "posicao": 2,
+        "nick": "TerrorBrawl",
+        "semana1": 50,
+        "semana2": 50,
+        "semana3": 50,
+        "semana4": 50
+    }
 ]

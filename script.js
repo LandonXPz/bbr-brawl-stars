@@ -299,11 +299,18 @@ async function carregarHalloween() {
         
         tbody.innerHTML = '';
 
-        jogadores.forEach(j => {
+        // Ordena os jogadores automaticamente do maior total para o menor
+        jogadores.sort((a, b) => {
+            const totalA = a.semana1 + a.semana2 + a.semana3 + a.semana4;
+            const totalB = b.semana1 + b.semana2 + b.semana3 + b.semana4;
+            return totalB - totalA;
+        });
+
+        jogadores.forEach((j, index) => {
             const total = j.semana1 + j.semana2 + j.semana3 + j.semana4;
             const tr = document.createElement('tr');
             tr.innerHTML = `
-                <td>${j.posicao}º</td>
+                <td>${index + 1}º</td>
                 <td>${j.nick}</td>
                 <td>${j.semana1}</td>
                 <td>${j.semana2}</td>
