@@ -2,25 +2,9 @@
   {
     "posicao": 1,
     "nick": "BBR LandonXPz",
-    "semana1": 67,
-    "semana2": 67,
-    "semana3": 67,
-    "semana4": 76
-  },
-  {
-        "posicao": 2,
-        "nick": "TerrorBrawl",
-        "semana1": 50,
-        "semana2": 50,
-        "semana3": 50,
-        "semana4": 50
-    },
-    {
-            "posicao": 3,
-            "nick": "Landuin",
-            "semana1": 250,
-            "semana2": 50,
-            "semana3": 90,
-            "semana4": 50
-        }
+    "semana1": 0,
+    "semana2": 0,
+    "semana3": 0,
+    "semana4": 0
+  }
 ]
