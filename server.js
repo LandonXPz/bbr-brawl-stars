@@ -76,6 +76,15 @@ app.get('/api/players/:tag', async (req, res) => {
     }
 });
 
+app.get('/api/halloween', (req, res) => {
+    try {
+        const data = require('./halloween.json');
+        res.json(data);
+    } catch (error) {
+        res.status(500).json({ error: 'Erro ao carregar dados do Halloween' });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });

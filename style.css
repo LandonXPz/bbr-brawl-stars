@@ -324,3 +324,42 @@ body {
 .logo-link:hover {
   opacity: 0.8;
 }
+
+/* Estilização da Tabela de Halloween */
+.halloween-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: #121216; /* Fundo bem escuro estilo noite de terror */
+    color: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(255, 117, 24, 0.2); /* Brilho laranja suave */
+}
+
+.halloween-table th, 
+.halloween-table td {
+    padding: 14px 18px;
+    text-align: center;
+    border-bottom: 1px solid #232333;
+}
+
+.halloween-table th {
+    background-color: #ff7518; /* Laranja abóbora vibrante */
+    color: #121216; /* Texto escuro para destacar no laranja */
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.halloween-table tr {
+    transition: background-color 0.2s ease;
+}
+
+.halloween-table tr:hover {
+    background-color: #1f1b2c; /* Leve tom roxo/escuro místico ao passar o mouse */
+}
+
+.halloween-table td strong {
+    color: #ff7518; /* Destaca a pontuação total em laranja */
+}
