@@ -5,8 +5,7 @@ const BBR_CLUBS = [
     '#2GLJJJQU9',
     '#2GP2RLLVL',
     '#2UCVYQGGP',
-    '#2GLJJVJ9V',
-    '#2CRUQ29LL'
+    '#2GLJJVJ9V'
 ];
 
 let clubChart = null;
