@@ -381,3 +381,19 @@ body {
 .titulo-site h1 {
     margin: 0;
 }
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.site-logo {
+    width: 45px !important;
+    height: 45px !important;
+    max-width: 45px !important;
+    max-height: 45px !important;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
