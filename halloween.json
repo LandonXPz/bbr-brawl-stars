@@ -9,31 +9,31 @@
   },
   {
     "posicao": 2,
-    "nick": "BBR Leozin",
-    "semana1": 42,
-    "semana2": 0,
+    "nick": "BBR|Leozin",
+    "semana1": 60,
+    "semana2": 20,
     "semana3": 0,
     "semana4": 0
   },
   {
     "posicao": 3,
-    "nick": "A🤍vampira ",
-    "semana1": 30,
-    "semana2": 0,
+    "nick": "A🤍Vampira ",
+    "semana1": 42,
+    "semana2": 10,
     "semana3": 0,
     "semana4": 0
   },
   {
     "posicao": 4,
-    "nick": "BBR Enzo",
-    "semana1": 52,
+    "nick": "BBR|Enzo",
+    "semana1": 76,
     "semana2": 0,
     "semana3": 0,
     "semana4": 0
   },
   {
     "posicao": 5,
-    "nick": "BBR Raposa",
+    "nick": "BBR|Raposa",
     "semana1": 19,
     "semana2": 0,
     "semana3": 0,
@@ -49,7 +49,7 @@
   },
   {
     "posicao": 7,
-    "nick": "BBR AMBULANCIA",
+    "nick": "BBR|AMBULANCIA",
     "semana1": 4,
     "semana2": 0,
     "semana3": 0,
@@ -58,15 +58,15 @@
   {
     "posicao": 9,
     "nick": "BBR | 苦 NEXUS🐉",
-    "semana1": 46,
-    "semana2": 0,
+    "semana1": 58,
+    "semana2": 10,
     "semana3": 0,
     "semana4": 0
   },
   {
     "posicao": 10,
-    "nick": "BBR Emy",
-    "semana1": 52,
+    "nick": "BBR|Emy",
+    "semana1": 70,
     "semana2": 0,
     "semana3": 0,
     "semana4": 0
@@ -74,8 +74,8 @@
   {
     "posicao": 11,
     "nick": "BBR | jintteok",
-    "semana1": 37,
-    "semana2": 0,
+    "semana1": 55,
+    "semana2": 10,
     "semana3": 0,
     "semana4": 0
   },
@@ -131,14 +131,14 @@
     "posicao": 18,
     "nick": "BBR |Thurx-x",
     "semana1": 2,
-    "semana2": 0,
+    "semana2": 10,
     "semana3": 0,
     "semana4": 0
   },
   {
     "posicao": 19,
     "nick": "BBR | Frost",
-    "semana1": 28,
+    "semana1": 46,
     "semana2": 0,
     "semana3": 0,
     "semana4": 0
@@ -154,8 +154,8 @@
   {
     "posicao": 21,
     "nick": "☆🎀MARI🎀☆",
-    "semana1": 25,
-    "semana2": 0,
+    "semana1": 49,
+    "semana2": 20,
     "semana3": 0,
     "semana4": 0
   },
@@ -172,6 +172,46 @@
     "nick": "BBR | XxRenanxX",
     "semana1": 6,
     "semana2": 0,
+    "semana3": 0,
+    "semana4": 0
+  },
+  {
+    "posicao": 24,
+    "nick": "BBR|Cuzcuz",
+    "semana1": 0,
+    "semana2": 10,
+    "semana3": 0,
+    "semana4": 0
+  },
+  {
+    "posicao": 25,
+    "nick": "BBR|Sírius",
+    "semana1": 0,
+    "semana2": 20,
+    "semana3": 0,
+    "semana4": 0
+  },
+  {
+    "posicao": 26,
+    "nick": "BBR|Ligeiro",
+    "semana1": 0,
+    "semana2": 20,
+    "semana3": 0,
+    "semana4": 0
+  },
+  {
+    "posicao": 27,
+    "nick": "G🤍Vampiro",
+    "semana1": 0,
+    "semana2": 20,
+    "semana3": 0,
+    "semana4": 0
+  },
+  {
+    "posicao": 28,
+    "nick": "SKS_GUSTACR07",
+    "semana1": 0,
+    "semana2": 10,
     "semana3": 0,
     "semana4": 0
   }
