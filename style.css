@@ -363,3 +363,18 @@ body {
 .halloween-table td strong {
     color: #ff7518; /* Destaca a pontuação total em laranja */
 }
+.titulo-site {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.titulo-site img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+}
+
+.titulo-site h1 {
+    margin: 0;
+}
