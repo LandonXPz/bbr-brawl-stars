@@ -12,7 +12,7 @@
     "nick": "BBR | Leozin",
     "semana1": 60,
     "semana2": 140,
-    "semana3": 0,
+    "semana3": 31,
     "semana4": 0
   },
   {
@@ -20,7 +20,7 @@
     "nick": "A🤍Vampira",
     "semana1": 42,
     "semana2": 100,
-    "semana3": 0,
+    "semana3": 3,
     "semana4": 0
   },
   {
@@ -140,7 +140,7 @@
     "nick": "BBR | Frost",
     "semana1": 46,
     "semana2": 110,
-    "semana3": 0,
+    "semana3": 3,
     "semana4": 0
   },
   {
@@ -180,7 +180,7 @@
     "nick": "BBR | Cuzcuz🌽",
     "semana1": 0,
     "semana2": 20,
-    "semana3": 0,
+    "semana3": 10,
     "semana4": 0
   },
   {
@@ -204,7 +204,7 @@
     "nick": "G🤍Vampiro",
     "semana1": 0,
     "semana2": 60,
-    "semana3": 0,
+    "semana3": 10,
     "semana4": 0
   },
   {
@@ -220,7 +220,7 @@
     "nick": "BBR | yury",
     "semana1": 0,
     "semana2": 100,
-    "semana3": 0,
+    "semana3": 5,
     "semana4": 0
   },
   {
@@ -244,7 +244,7 @@
     "nick": "sr. banana",
     "semana1": 0,
     "semana2": 60,
-    "semana3": 0,
+    "semana3": 24,
     "semana4": 0
     },
       {
@@ -253,6 +253,30 @@
     "semana1": 0,
     "semana2": 10,
     "semana3": 0,
+    "semana4": 0
+    },
+    {
+    "posicao": 34,
+    "nick": "Blackoutz",
+    "semana1": 0,
+    "semana2": 0,
+    "semana3": 31,
+    "semana4": 0
+    },
+      {
+    "posicao": 35,
+    "nick": "BBR| CAFÉ☕️",
+    "semana1": 0,
+    "semana2": 0,
+    "semana3": 8,
+    "semana4": 0
+    },
+        {
+    "posicao": 36,
+    "nick": "The Lady In Red",
+    "semana1": 0,
+    "semana2": 0,
+    "semana3": 5,
     "semana4": 0
     }
 ]
