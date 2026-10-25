@@ -397,3 +397,106 @@ body {
     flex-shrink: 0;
 }
 
+/* Ranking Ranqueado BBR */
+
+.ranked-description {
+    color: var(--text-sub);
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.ranked-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 18px;
+}
+
+.ranked-toolbar input,
+.ranked-toolbar select {
+    background: rgba(36, 26, 61, 0.85);
+    color: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 12px 15px;
+    font-family: inherit;
+    font-size: 0.9rem;
+    min-height: 46px;
+}
+
+.ranked-toolbar input {
+    flex: 2 1 250px;
+    min-width: 0;
+}
+
+.ranked-toolbar select {
+    flex: 1 1 180px;
+    cursor: pointer;
+}
+
+.ranked-toolbar input:focus,
+.ranked-toolbar select:focus {
+    outline: 2px solid var(--accent-purple);
+    outline-offset: 2px;
+}
+
+.ranked-status {
+    color: var(--text-sub);
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+}
+
+.ranked-table th:last-child,
+.ranked-table td:last-child {
+    text-align: right;
+    font-weight: 700;
+}
+
+.ranked-table tbody tr {
+    transition: background 0.2s ease;
+}
+
+.ranked-table tbody tr:hover {
+    background: rgba(157, 78, 221, 0.12);
+}
+
+.ranked-table .ranked-top15 td:first-child {
+    color: var(--accent-light);
+    font-weight: 800;
+}
+
+.ranked-table .ranked-top15 {
+    background: rgba(157, 78, 221, 0.045);
+}
+
+.ranked-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    color: var(--text-sub);
+    font-size: 0.8rem;
+    margin-top: 16px;
+}
+
+.ranked-legend span {
+    opacity: 0.8;
+}
+
+@media (max-width: 600px) {
+    .ranked-toolbar {
+        flex-direction: column;
+    }
+
+    .ranked-toolbar input,
+    .ranked-toolbar select {
+        flex: none;
+        width: 100%;
+    }
+
+    .ranked-table th,
+    .ranked-table td {
+        padding: 10px 8px;
+        font-size: 0.78rem;
+    }
+}
+
