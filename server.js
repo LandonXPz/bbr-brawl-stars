@@ -85,6 +85,55 @@ app.get('/api/halloween', (req, res) => {
     }
 });
 
+/* Diagnóstico dos dados ranqueados da API */
+app.get("/api/debug-ranked/:tag", async (req, res) => {
+    const apiKey = process.env.SUPERCELL_API_KEY;
+
+    if (!apiKey) {
+        return res.status(500).json({
+            error: "API não configurada"
+        });
+    }
+
+    try {
+        const tag = req.params.tag.replace(/^#/, "");
+        const url = `https://api.brawlstars.com/v1/players/%23${encodeURIComponent(tag)}`;
+
+        const response = await fetch(url, {
+            headers: {
+                Authorization: `Bearer ${apiKey}`,
+                Accept: "application/json"
+            }
+        });
+
+        if (!response.ok) {
+            return res.status(response.status).json({
+                error: "Falha na consulta à API"
+            });
+        }
+
+        const player = await response.json();
+
+        const rankedFields = Object.fromEntries(
+            Object.entries(player).filter(([key]) =>
+                /rank|elo|score/i.test(key)
+            )
+        );
+
+        res.json({
+            player: player.name,
+            availableFields: Object.keys(player),
+            rankedFields
+        });
+
+    } catch (error) {
+        console.error("Erro no diagnóstico ranqueado:", error);
+        res.status(500).json({
+            error: "Erro interno no diagnóstico"
+        });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
