@@ -17,7 +17,8 @@
     <h1><a href="index.html" class="logo-link">BBR <span>Brawl Stars</span></a></h1>
 </div>
         <nav class="nav-tabs">
-            <button class="tab-btn active" data-tab="ranking">Ranking de Troféus</button>
+            <button class="tab-btn active" data-tab="ranking">Ranking de Troféus</button>            
+<button class="tab-btn" data-tab="ranked">Ranking Ranqueado</button>
             <button class="tab-btn" data-tab="clubes">Nossos Clubes</button>
             <button class="tab-btn" data-tab="jogador">Buscar Jogador</button>
             <button class="tab-btn" data-tab="estatisticas">Estatísticas & Gráficos</button>
@@ -50,6 +51,66 @@
                 </table>
             </div>
         </section>
+
+<!-- Ranking Ranqueado BBR -->
+<section id="ranked" class="tab-content">
+    <h2>Ranking Ranqueado</h2>
+
+    <p class="ranked-description">
+        Classificação dos jogadores dos sete clubes da BBR,
+        organizada pela pontuação ranqueada.
+    </p>
+
+    <div class="ranked-toolbar">
+        <input
+            type="search"
+            id="ranked-search"
+            placeholder="Pesquisar jogador ou tag..."
+            aria-label="Pesquisar jogador"
+        >
+
+        <select id="ranked-club-filter"
+                aria-label="Filtrar por clube">
+            <option value="">Todos os clubes</option>
+            <option value="#882UJP9GR">BBR | Esports</option>
+            <option value="#CQYU8RQP">BBR | Elite</option>
+            <option value="#882GLYJ8C">BBR 1</option>
+            <option value="#2GLJJJQU9">BBR 2</option>
+            <option value="#2GP2RLLVL">BBR 3</option>
+            <option value="#2UCVYQGGP">BBR 4</option>
+            <option value="#2GLJJVJ9V">BBR 5</option>
+        </select>
+    </div>
+
+    <p id="ranked-status" class="ranked-status">
+        Carregando classificação...
+    </p>
+
+    <div class="table-card">
+        <table class="data-table ranked-table">
+            <thead>
+                <tr>
+                    <th>Posição</th>
+                    <th>Jogador</th>
+                    <th>Clube</th>
+                    <th>Pontos</th>
+                </tr>
+            </thead>
+            <tbody id="ranked-tbody">
+                <tr>
+                    <td colspan="4">
+                        Aguardando dados do ranking...
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p class="ranked-legend">
+        📈 Subiu &nbsp; 📉 Caiu &nbsp; ➖ Manteve
+        <span>Indicadores exclusivos do TOP 15.</span>
+    </p>
+</section>
 
         <section id="jogador" class="tab-content">
             <h2>Análise de Jogador</h2>
@@ -165,6 +226,7 @@
     </main>
 
     <script src="script.js"></script>
+                    <script src="ranking-ranked.js"></script>
     <!-- Modal de Membros do Clube -->
 <div id="club-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center;">
     <div style="background: #1e1e2e; padding: 24px; border-radius: 12px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto; color: white; position: relative;">
