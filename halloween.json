@@ -13,7 +13,7 @@
     "semana1": 60,
     "semana2": 140,
     "semana3": 284,
-    "semana4": 40
+    "semana4": 60
   },
   {
     "posicao": 3,
@@ -37,7 +37,7 @@
     "semana1": 19,
     "semana2": 0,
     "semana3": 53,
-    "semana4": 0
+    "semana4": 10
   },
   {
     "posicao": 6,
@@ -141,7 +141,7 @@
     "semana1": 46,
     "semana2": 110,
     "semana3": 144,
-    "semana4": 30
+    "semana4": 45
   },
   {
     "posicao": 20,
@@ -173,7 +173,7 @@
     "semana1": 6,
     "semana2": 60,
     "semana3": 175,
-    "semana4": 0
+    "semana4": 25
   },
   {
     "posicao": 24,
@@ -302,5 +302,13 @@
     "semana2": 0,
     "semana3": 0,
     "semana4": 10
-  } 
+  },
+   {
+  "posicao": 40,
+    "nick": "BBR | RayColdV8",
+    "semana1": 24,
+    "semana2": 0,
+    "semana3": 0,
+    "semana4": 30
+  }
 ]
