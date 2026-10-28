@@ -13,7 +13,7 @@
     "semana1": 60,
     "semana2": 140,
     "semana3": 284,
-    "semana4": 0
+    "semana4": 40
   },
   {
     "posicao": 3,
@@ -141,7 +141,7 @@
     "semana1": 46,
     "semana2": 110,
     "semana3": 144,
-    "semana4": 0
+    "semana4": 30
   },
   {
     "posicao": 20,
@@ -213,7 +213,7 @@
     "semana1": 0,
     "semana2": 80,
     "semana3": 145,
-    "semana4": 0
+    "semana4": 20
   },
   {
     "posicao": 29,
@@ -269,7 +269,7 @@
     "semana1": 0,
     "semana2": 0,
     "semana3": 28,
-    "semana4": 0
+    "semana4": 50
     },
         {
     "posicao": 36,
@@ -295,4 +295,12 @@
     "semana3": 20,
     "semana4": 0
   } 
-]
+],
+ {
+  "posicao": 39,
+    "nick": "Slxyyz",
+    "semana1": 0,
+    "semana2": 0,
+    "semana3": 0,
+    "semana4": 10
+  } 
