@@ -13,7 +13,7 @@
     "semana1": 60,
     "semana2": 140,
     "semana3": 284,
-    "semana4": 80
+    "semana4": 110
   },
   {
     "posicao": 3,
@@ -37,7 +37,7 @@
     "semana1": 19,
     "semana2": 0,
     "semana3": 53,
-    "semana4": 35
+    "semana4": 60
   },
   {
     "posicao": 6,
@@ -141,7 +141,7 @@
     "semana1": 46,
     "semana2": 110,
     "semana3": 144,
-    "semana4": 45
+    "semana4": 65
   },
   {
     "posicao": 20,
@@ -261,7 +261,7 @@
     "semana1": 0,
     "semana2": 0,
     "semana3": 238,
-    "semana4": 80
+    "semana4": 95
     },
       {
     "posicao": 35,
@@ -310,5 +310,13 @@
     "semana2": 0,
     "semana3": 0,
     "semana4": 30
+  },
+     {
+  "posicao": 41,
+    "nick": "Live fishers",
+    "semana1": 0,
+    "semana2": 0,
+    "semana3": 0,
+    "semana4": 10
   }
 ]
