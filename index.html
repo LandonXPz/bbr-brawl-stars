@@ -18,6 +18,7 @@
 </div>
         <nav class="nav-tabs">
             <button class="tab-btn active" data-tab="ranking">Ranking de Troféus</button>
+            <button class="tab-btn" data-tab="ranqueada">Ranking Ranqueado</button>
             <button class="tab-btn" data-tab="clubes">Nossos Clubes</button>
             <button class="tab-btn" data-tab="jogador">Buscar Jogador</button>
             <button class="tab-btn" data-tab="estatisticas">Estatísticas & Gráficos</button>
@@ -65,6 +66,47 @@
                 </table>
             </div>
         </section>
+
+<!-- Ranking Ranqueado BBR -->
+<section id="ranqueada" class="tab-content">
+    <h2>Ranking Ranqueado</h2>
+    <p class="subtext">Classificação por pontos da Ranqueada — BBR | Esports</p>
+
+    <!-- Pesquisa por nick -->
+    <div class="ranking-search">
+        <input
+            type="search"
+            id="ranked-search-input"
+            placeholder="🔎 Pesquisar jogador pelo nick..."
+            aria-label="Pesquisar jogador na Ranqueada"
+            autocomplete="off"
+        >
+    </div>
+
+    <!-- Pódio TOP 3 -->
+    <div id="ranked-podium" class="ranking-podium"></div>
+
+    <!-- Tabela de classificação -->
+    <div class="table-card">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Jogador</th>
+                    <th>Clube</th>
+                    <th>Pontos</th>
+                </tr>
+            </thead>
+            <tbody id="ranked-tbody">
+                <tr>
+                    <td colspan="4">Carregando ranking ranqueado...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <p id="ranked-updated" class="subtext"></p>
+</section>
 
         <section id="jogador" class="tab-content">
             <h2>Análise de Jogador</h2>
