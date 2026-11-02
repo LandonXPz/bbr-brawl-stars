@@ -157,30 +157,166 @@ async function loadDashboardData() {
     }
 }
 
-function renderRanking(members) {
-    const rankingTbody = document.getElementById('ranking-tbody');
-    if (!rankingTbody) return;
-    
-    rankingTbody.innerHTML = '';
 
-    if (members.length === 0) {
-        rankingTbody.innerHTML = '<tr><td colspan="4">Nenhum dado disponível no momento.</td></tr>';
+/* ==========================================
+   BBR - RANKING DE TROFÉUS
+   TOP 3 + PESQUISA POR NICK
+========================================== */
+
+let rankingMembers = [];
+
+// Normaliza os nomes para facilitar a pesquisa
+function rankingNormalize(value) {
+    return String(value || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+}
+
+// Cria elementos de texto com segurança
+function rankingText(tag, className, value) {
+    const el = document.createElement(tag);
+
+    if (className) {
+        el.className = className;
+    }
+
+    el.textContent = value;
+    return el;
+}
+
+// Recebe os dados já carregados pela API
+function renderRanking(members) {
+    rankingMembers = [...members].sort(
+        (a, b) => b.trophies - a.trophies
+    );
+
+    renderRankingView();
+}
+
+// Atualiza o pódio e a tabela
+function renderRankingView() {
+    const tbody = document.getElementById('ranking-tbody');
+    const podium = document.getElementById('ranking-podium');
+    const input = document.getElementById('ranking-search-input');
+
+    if (!tbody) return;
+
+    const term = rankingNormalize(input?.value.trim());
+
+    tbody.replaceChildren();
+
+    // Mostra o pódio apenas quando não há pesquisa
+    if (podium) {
+        podium.replaceChildren();
+        podium.hidden = Boolean(term);
+    }
+
+    // TOP 3
+    if (!term && podium) {
+        rankingMembers.slice(0, 3).forEach((player, index) => {
+            const card = document.createElement('div');
+
+            card.className = 'podium-card ' + [
+                'podium-gold',
+                'podium-silver',
+                'podium-bronze'
+            ][index];
+
+            card.append(
+                rankingText('div', 'podium-place', [
+                    '🥇 1º LUGAR',
+                    '🥈 2º LUGAR',
+                    '🥉 3º LUGAR'
+                ][index]),
+
+                rankingText('div', 'podium-name', player.name),
+
+                rankingText('div', 'podium-club', player.clubName),
+
+                rankingText(
+                    'div',
+                    'podium-trophies',
+                    '🏆 ' + Number(player.trophies).toLocaleString('pt-BR')
+                )
+            );
+
+            podium.appendChild(card);
+        });
+    }
+
+    // Filtra sem perder a posição original
+    const filtered = rankingMembers
+        .map((player, index) => ({ player, index }))
+        .filter(({ player }) =>
+            rankingNormalize(player.name).includes(term)
+        );
+
+    if (!filtered.length) {
+        const tr = document.createElement('tr');
+        const td = rankingText(
+            'td',
+            '',
+            rankingMembers.length
+                ? 'Nenhum jogador encontrado.'
+                : 'Nenhum dado disponível no momento.'
+        );
+
+        td.colSpan = 4;
+        tr.appendChild(td);
+        tbody.appendChild(tr);
         return;
     }
 
-    members.sort((a, b) => b.trophies - a.trophies);
-
-    members.forEach((player, index) => {
+    // Monta a tabela completa
+    filtered.forEach(({ player, index }) => {
         const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td>#${index + 1}</td>
-            <td><strong>${player.name}</strong></td>
-            <td><img src="imagens/club.png" alt="Clube" style="width: 20px; height: 20px; vertical-align: middle; margin-right: 6px;">${player.clubName}</td>
-            <td><img src="imagens/icon_trophy.png" alt="Troféu" style="width: 16px; height: 16px; vertical-align: middle; margin-right: 4px;"> ${player.trophies.toLocaleString()}</td>
-        `;
-        rankingTbody.appendChild(tr);
+
+        const position = rankingText('td', '', '#' + (index + 1));
+
+        const name = document.createElement('td');
+        name.appendChild(
+            rankingText('strong', '', player.name)
+        );
+
+        const club = document.createElement('td');
+        const clubIcon = document.createElement('img');
+        clubIcon.src = 'imagens/club.png';
+        clubIcon.alt = '';
+        clubIcon.style.cssText =
+            'width:20px;height:20px;vertical-align:middle;margin-right:6px;';
+        club.append(
+            clubIcon,
+            document.createTextNode(player.clubName || '')
+        );
+
+        const trophies = document.createElement('td');
+        const trophyIcon = document.createElement('img');
+        trophyIcon.src = 'imagens/icon_trophy.png';
+        trophyIcon.alt = '';
+        trophyIcon.style.cssText =
+            'width:16px;height:16px;vertical-align:middle;margin-right:4px;';
+        trophies.append(
+            trophyIcon,
+            document.createTextNode(
+                Number(player.trophies).toLocaleString('pt-BR')
+            )
+        );
+
+        tr.append(position, name, club, trophies);
+        tbody.appendChild(tr);
     });
 }
+
+// Pesquisa instantânea enquanto digita
+document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('ranking-search-input');
+
+    if (input) {
+        input.addEventListener('input', renderRankingView);
+    }
+});
+
 
 function renderChart(labels, data) {
     const canvas = document.getElementById('clubTrophiesChart');
