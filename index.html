@@ -34,6 +34,21 @@
 
         <section id="ranking" class="tab-content active">
             <h2>Ranking Geral</h2>
+            
+<!-- Pesquisa por nick no Ranking de Troféus -->
+<div class="ranking-search">
+    <input
+        type="search"
+        id="ranking-search-input"
+        placeholder="🔎 Pesquisar jogador pelo nick..."
+        aria-label="Pesquisar jogador pelo nick"
+        autocomplete="off"
+    >
+</div>
+
+<!-- Destaque dos três primeiros colocados -->
+<div id="ranking-podium" class="ranking-podium"></div>
+
             <div class="table-card">
                 <table class="data-table">
                     <thead>
