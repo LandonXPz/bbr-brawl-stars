@@ -10,11 +10,14 @@ const BBR_CLUBS = [
 
 let clubChart = null;
 
+
 document.addEventListener('DOMContentLoaded', () => {
     initTabs();
     initSearch();
     loadDashboardData();
+    loadRankedRanking();
 });
+
 
 function initTabs() {
     const buttons = document.querySelectorAll('.tab-btn');
@@ -478,3 +481,177 @@ async function carregarHalloween() {
 }
 
 carregarHalloween();
+
+
+/* ==========================================
+   BBR - RANKING RANQUEADO
+   TOP 3 + PESQUISA POR NICK
+========================================== */
+
+let rankedMembers = [];
+
+async function loadRankedRanking() {
+    const tbody = document.getElementById('ranked-tbody');
+    const updated = document.getElementById('ranked-updated');
+
+    if (!tbody) return;
+
+    try {
+        const response = await fetch('/api/ranked');
+
+        if (!response.ok) {
+            throw new Error('Erro ao consultar a Ranqueada');
+        }
+
+        const data = await response.json();
+
+        if (!Array.isArray(data.ranking)) {
+            throw new Error('Dados inválidos');
+        }
+
+        rankedMembers = [...data.ranking].sort(
+            (a, b) => b.rankedElo - a.rankedElo
+        );
+
+        renderRankedRanking();
+
+        if (updated) {
+            const date = new Date(data.updatedAt);
+            const time = date.toLocaleString('pt-BR', {
+                timeZone: 'America/Sao_Paulo'
+            });
+
+            updated.textContent =
+                'Última atualização: ' + time +
+                (data.complete ? '' : ' — Dados parciais');
+        }
+
+    } catch (error) {
+        console.error('Erro no Ranking Ranqueado:', error);
+        tbody.replaceChildren();
+
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+        td.colSpan = 4;
+        td.textContent = 'Não foi possível carregar o ranking.';
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+    }
+}
+
+function renderRankedRanking() {
+    const tbody = document.getElementById('ranked-tbody');
+    const podium = document.getElementById('ranked-podium');
+    const input = document.getElementById('ranked-search-input');
+
+    if (!tbody) return;
+
+    const term = rankingNormalize(input?.value.trim());
+
+    tbody.replaceChildren();
+
+    if (podium) {
+        podium.replaceChildren();
+        podium.hidden = Boolean(term);
+    }
+
+    // Pódio TOP 3
+    if (!term && podium) {
+        rankedMembers.slice(0, 3).forEach((player, index) => {
+            const card = document.createElement('div');
+
+            card.className = 'podium-card ' + [
+                'podium-gold',
+                'podium-silver',
+                'podium-bronze'
+            ][index];
+
+            const avatar = document.createElement('img');
+            avatar.src =
+                `https://cdn.brawlify.com/profile-icons/regular/${player.iconId}.png`;
+            avatar.alt = 'Ícone de ' + player.name;
+            avatar.className = 'podium-avatar';
+
+            card.append(
+                rankingText('div', 'podium-place', [
+                    '🥇 1º LUGAR',
+                    '🥈 2º LUGAR',
+                    '🥉 3º LUGAR'
+                ][index]),
+                avatar,
+                rankingText('div', 'podium-name', player.name),
+                rankingText('div', 'podium-club', player.clubName),
+                rankingText(
+                    'div',
+                    'podium-trophies',
+                    '🎖️ ' + Number(player.rankedElo).toLocaleString('pt-BR')
+                )
+            );
+
+            podium.appendChild(card);
+        });
+    }
+
+    // Pesquisa sem perder a posição original
+    const filtered = rankedMembers
+        .map((player, index) => ({ player, index }))
+        .filter(({ player }) =>
+            rankingNormalize(player.name).includes(term)
+        );
+
+    if (!filtered.length) {
+        const tr = document.createElement('tr');
+        const td = document.createElement('td');
+
+        td.colSpan = 4;
+        td.textContent = 'Nenhum jogador encontrado.';
+
+        tr.appendChild(td);
+        tbody.appendChild(tr);
+        return;
+    }
+
+    filtered.forEach(({ player, index }) => {
+        const tr = document.createElement('tr');
+
+        const position = rankingText(
+            'td', '', '#' + (index + 1)
+        );
+
+        const name = document.createElement('td');
+
+        const avatar = document.createElement('img');
+        avatar.src =
+            `https://cdn.brawlify.com/profile-icons/regular/${player.iconId}.png`;
+        avatar.alt = 'Ícone de ' + player.name;
+        avatar.className = 'ranking-avatar';
+
+        name.append(
+            avatar,
+            rankingText('strong', '', player.name)
+        );
+
+        const club = rankingText(
+            'td', '', player.clubName
+        );
+
+        const points = rankingText(
+            'td',
+            '',
+            '🎖️ ' + Number(player.rankedElo).toLocaleString('pt-BR')
+        );
+
+        tr.append(position, name, club, points);
+        tbody.appendChild(tr);
+    });
+}
+
+// Pesquisa instantânea
+document.addEventListener('DOMContentLoaded', () => {
+    const input = document.getElementById('ranked-search-input');
+
+    if (input) {
+        input.addEventListener('input', renderRankedRanking);
+    }
+});
+
