@@ -142,11 +142,14 @@ async function loadDashboardData() {
 
         if (club.members) {
             club.members.forEach(member => {
-                allMembers.push({
-                    name: member.name,
-                    trophies: member.trophies,
-                    clubName: club.name
-                });
+                
+allMembers.push({
+    name: member.name,
+    trophies: member.trophies,
+    clubName: club.name,
+    iconId: member.icon?.id || 28000000
+});
+
             });
         }
     });
@@ -230,6 +233,12 @@ function renderRankingView() {
                     '🥉 3º LUGAR'
                 ][index]),
 
+Object.assign(document.createElement('img'), {
+    src: `https://cdn.brawlify.com/profile-icons/regular/${player.iconId}.png`,
+    alt: 'Ícone de perfil de ' + player.name,
+    className: 'podium-avatar'
+}),
+
                 rankingText('div', 'podium-name', player.name),
 
                 rankingText('div', 'podium-club', player.clubName),
@@ -273,11 +282,19 @@ function renderRankingView() {
         const tr = document.createElement('tr');
 
         const position = rankingText('td', '', '#' + (index + 1));
+        
+const name = document.createElement('td');
 
-        const name = document.createElement('td');
-        name.appendChild(
-            rankingText('strong', '', player.name)
-        );
+const avatar = document.createElement('img');
+avatar.src = `https://cdn.brawlify.com/profile-icons/regular/${player.iconId}.png`;
+avatar.alt = 'Ícone de perfil de ' + player.name;
+avatar.className = 'ranking-avatar';
+
+name.append(
+    avatar,
+    rankingText('strong', '', player.name)
+);
+
 
         const club = document.createElement('td');
         const clubIcon = document.createElement('img');
