@@ -594,3 +594,37 @@ body {
     }
 }
 
+/* BBR — Emblemas das divisões Ranqueadas */
+
+/* Emblema no TOP 3 */
+.ranked-emblem-podium {
+    display: block;
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    margin: 8px auto;
+}
+
+/* Emblema ao lado dos pontos na tabela */
+.ranked-emblem-table {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+/* Ajustes para celulares */
+@media (max-width: 600px) {
+    .ranked-emblem-podium {
+        width: 48px;
+        height: 48px;
+    }
+
+    .ranked-emblem-table {
+        width: 26px;
+        height: 26px;
+        margin-right: 5px;
+    }
+}
+
