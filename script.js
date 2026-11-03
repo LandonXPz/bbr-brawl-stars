@@ -603,15 +603,6 @@ function renderRankedRanking() {
             avatar.alt = 'Ícone de ' + player.name;
             avatar.className = 'podium-avatar';
 
-const emblemPath = getRankedEmblem(player);
-
-if (emblemPath) {
-    const emblem = document.createElement('img');
-    emblem.src = emblemPath;
-    emblem.alt = 'Emblema da divisão ' + player.rankedRankName;
-    emblem.className = 'ranked-emblem-podium';
-    card.appendChild(emblem);
-}
 
             card.append(
                 rankingText('div', 'podium-place', [
@@ -622,11 +613,30 @@ if (emblemPath) {
                 avatar,
                 rankingText('div', 'podium-name', player.name),
                 rankingText('div', 'podium-club', player.clubName),
-                rankingText(
-                    'div',
-                    'podium-trophies',
-                    '🎖️ ' + Number(player.rankedElo).toLocaleString('pt-BR')
-                )
+               
+(() => {
+    const points = document.createElement('div');
+    points.className = 'podium-trophies';
+
+    const emblemPath = getRankedEmblem(player);
+
+    if (emblemPath) {
+        const emblem = document.createElement('img');
+        emblem.src = emblemPath;
+        emblem.alt = 'Emblema da divisão ' + player.rankedRankName;
+        emblem.className = 'ranked-emblem-podium';
+        points.appendChild(emblem);
+    }
+
+    points.appendChild(
+        document.createTextNode(
+            Number(player.rankedElo).toLocaleString('pt-BR')
+        )
+    );
+
+    return points;
+})()
+
             );
 
             podium.appendChild(card);
