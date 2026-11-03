@@ -490,6 +490,37 @@ carregarHalloween();
 
 let rankedMembers = [];
 
+function getRankedEmblem(player) {
+    const name = String(player.rankedRankName || '')
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .toLowerCase();
+
+    const divisions = {
+        bronze: 'bronze',
+        prata: 'silver',
+        silver: 'silver',
+        ouro: 'gold',
+        gold: 'gold',
+        diamante: 'diamond',
+        diamond: 'diamond',
+        mitico: 'mythic',
+        mythic: 'mythic',
+        lendario: 'legendary',
+        legendary: 'legendary',
+        mestres: 'masters',
+        masters: 'masters',
+        pro: 'pro'
+    };
+
+    const division = Object.keys(divisions)
+        .find(key => name.includes(key));
+
+    if (!division) return null;
+
+    return 'imagens/ranked-' + divisions[division] + '.webp';
+}
+
 async function loadRankedRanking() {
     const tbody = document.getElementById('ranked-tbody');
     const updated = document.getElementById('ranked-updated');
@@ -572,6 +603,16 @@ function renderRankedRanking() {
             avatar.alt = 'Ícone de ' + player.name;
             avatar.className = 'podium-avatar';
 
+const emblemPath = getRankedEmblem(player);
+
+if (emblemPath) {
+    const emblem = document.createElement('img');
+    emblem.src = emblemPath;
+    emblem.alt = 'Emblema da divisão ' + player.rankedRankName;
+    emblem.className = 'ranked-emblem-podium';
+    card.appendChild(emblem);
+}
+
             card.append(
                 rankingText('div', 'podium-place', [
                     '🥇 1º LUGAR',
@@ -635,11 +676,24 @@ function renderRankedRanking() {
             'td', '', player.clubName
         );
 
-        const points = rankingText(
-            'td',
-            '',
-            '🎖️ ' + Number(player.rankedElo).toLocaleString('pt-BR')
-        );
+       
+const points = document.createElement('td');
+
+const emblemPath = getRankedEmblem(player);
+
+if (emblemPath) {
+    const emblem = document.createElement('img');
+    emblem.src = emblemPath;
+    emblem.alt = 'Emblema da divisão ' + player.rankedRankName;
+    emblem.className = 'ranked-emblem-table';
+    points.appendChild(emblem);
+}
+
+points.appendChild(
+    document.createTextNode(
+        Number(player.rankedElo).toLocaleString('pt-BR')
+    )
+);
 
         tr.append(position, name, club, points);
         tbody.appendChild(tr);
