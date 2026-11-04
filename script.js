@@ -246,11 +246,27 @@ Object.assign(document.createElement('img'), {
 
                 rankingText('div', 'podium-club', player.clubName),
 
-                rankingText(
-                    'div',
-                    'podium-trophies',
-                    '🏆 ' + Number(player.trophies).toLocaleString('pt-BR')
-                )
+               
+(() => {
+    const points = document.createElement('div');
+    points.className = 'podium-trophies';
+
+    const trophyIcon = document.createElement('img');
+    trophyIcon.src = 'imagens/icon_trophy.png';
+    trophyIcon.alt = 'Troféus';
+    trophyIcon.style.cssText =
+        'width:20px;height:20px;object-fit:contain;vertical-align:middle;margin-right:5px;';
+
+    points.append(
+        trophyIcon,
+        document.createTextNode(
+            Number(player.trophies).toLocaleString('pt-BR')
+        )
+    );
+
+    return points;
+})()
+
             );
 
             podium.appendChild(card);
