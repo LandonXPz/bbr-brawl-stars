@@ -682,9 +682,20 @@ function renderRankedRanking() {
             rankingText('strong', '', player.name)
         );
 
-        const club = rankingText(
-            'td', '', player.clubName
-        );
+
+const club = document.createElement('td');
+
+const clubIcon = document.createElement('img');
+clubIcon.src = 'imagens/club.png';
+clubIcon.alt = '';
+clubIcon.style.cssText =
+    'width:20px;height:20px;vertical-align:middle;margin-right:6px;';
+
+club.append(
+    clubIcon,
+    document.createTextNode(player.clubName || '')
+);
+
 
        
 const points = document.createElement('td');
