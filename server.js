@@ -76,6 +76,122 @@ app.get('/api/players/:tag', async (req, res) => {
     }
 });
 
+
+/* Teste isolado do Megacofre — histórico de batalhas */
+const megaPigTestCache = new Map();
+let megaPigLastRequest = 0;
+const MEGAPIG_TEST_CACHE_MS = 5 * 60 * 1000;
+
+app.get('/api/megacofre/teste/:tag', async (req, res) => {
+    const tag = String(req.params.tag || '')
+        .replace(/^#/, '')
+        .toUpperCase();
+
+    if (!/^[0289PYLQGRJCUV]{3,15}$/.test(tag)) {
+        return res.status(400).json({
+            error: 'Tag de jogador inválida'
+        });
+    }
+
+    const apiKey = process.env.SUPERCELL_API_KEY;
+
+    if (!apiKey) {
+        return res.status(500).json({
+            error: 'Chave da API não configurada'
+        });
+    }
+
+    const cached = megaPigTestCache.get(tag);
+
+    if (
+        cached &&
+        Date.now() - cached.time < MEGAPIG_TEST_CACHE_MS
+    ) {
+        return res.json({
+            ...cached.data,
+            cached: true
+        });
+    }
+
+    // Limita novos testes a uma consulta por minuto.
+    if (Date.now() - megaPigLastRequest < 60000) {
+        res.set('Retry-After', '60');
+
+        return res.status(429).json({
+            error: 'Aguarde um minuto para outro teste'
+        });
+    }
+
+    megaPigLastRequest = Date.now();
+
+    try {
+        const response = await fetch(
+            'https://api.brawlstars.com/v1/players/%23' +
+                tag + '/battlelog',
+            {
+                headers: {
+                    Authorization: 'Bearer ' + apiKey,
+                    Accept: 'application/json'
+                },
+                signal: AbortSignal.timeout(12000)
+            }
+        );
+
+        if (!response.ok) {
+            return res.status(response.status).json({
+                error: 'Falha ao consultar o histórico',
+                status: response.status
+            });
+        }
+
+        const data = await response.json();
+
+        const items = Array.isArray(data.items)
+            ? data.items
+            : [];
+
+        const result = {
+            playerTag: '#' + tag,
+            checkedAt: new Date().toISOString(),
+            totalBattles: items.length,
+            note: 'Teste de identificação de partidas. A API não informa diretamente ingressos restantes.',
+            battles: items.map(item => ({
+                battleTime: item.battleTime || null,
+                eventId: item.event?.id ?? null,
+                eventMode: item.event?.mode || null,
+                eventMap: item.event?.map || null,
+                battleMode: item.battle?.mode || null,
+                battleType: item.battle?.type || null,
+                result: item.battle?.result || null,
+                duration: item.battle?.duration ?? null
+            }))
+        };
+
+        megaPigTestCache.set(tag, {
+            time: Date.now(),
+            data: result
+        });
+
+        if (megaPigTestCache.size > 100) {
+            megaPigTestCache.delete(
+                megaPigTestCache.keys().next().value
+            );
+        }
+
+        res.json(result);
+
+    } catch (error) {
+        console.error(
+            'Falha no teste do Megacofre:',
+            error.message
+        );
+
+        res.status(502).json({
+            error: 'Não foi possível consultar o histórico'
+        });
+    }
+});
+
 app.get('/api/halloween', (req, res) => {
     try {
         const data = require('./halloween.json');
