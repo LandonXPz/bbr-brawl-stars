@@ -162,8 +162,10 @@ app.get('/api/megacofre/teste/:tag', async (req, res) => {
                 eventMap: item.event?.map || null,
                 battleMode: item.battle?.mode || null,
                 battleType: item.battle?.type || null,
-                result: item.battle?.result || null,
-                duration: item.battle?.duration ?? null
+                result: item.battle?.result ?? null,
+rank: item.battle?.rank ?? null,
+trophyChange: item.battle?.trophyChange ?? null,
+duration: item.battle?.duration ?? null
             }))
         };
 
