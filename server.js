@@ -270,7 +270,9 @@ async function updateRankedRanking(apiKey) {
                     clubName: member.clubName,
                     rankedElo: Number(player.rankedElo || 0),
                     rankedRank: player.rankedRank,
-                    rankedRankName: player.rankedRankName
+                    rankedRankName: player.rankedRankName,
+rankedSeasonId: player.rankedSeasonId ?? null,
+highestSeasonRankedElo: player.highestSeasonRankedElo ?? null
                 };
             })
         );
